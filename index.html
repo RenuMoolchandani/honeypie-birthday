@@ -15,7 +15,7 @@ body {
     overflow-x: hidden;
 }
 
-/* Fade In */
+/* Fade In Animation */
 .fade-in {
     opacity: 0;
     animation: fadeIn 3s forwards;
@@ -29,6 +29,11 @@ h1 {
     margin-top: 30px;
     color: #ff2e88;
     font-size: 30px;
+}
+
+.cake {
+    font-size: 60px;
+    margin-top: 10px;
 }
 
 /* Image Style */
@@ -67,12 +72,16 @@ h1 {
 
 <body>
 
-<h1 class="fade-in">Happy 27th Birthday Honeypie 💗</h1>
+<h1 class="fade-in">
+Happy 27th Birthday Honeypie 💗
+</h1>
+
+<div class="cake fade-in">🎂✨</div>
 
 <img src="memory1.png" class="birthday-img fade-in">
 
 <div class="message fade-in">
-You are the one with whom I want to spend rest of my life with 💗 <br><br>
+You are the one with whom I want to spend the rest of my life 💗 <br><br>
 Ups and downs are part of a rollercoaster relationship. <br><br>
 I love u Honeypie 💗 <br><br>
 Keep smiling 😊 keep shining just like u always do 💕 <br><br>
@@ -82,22 +91,29 @@ Forever yours, <br>
 </div>
 
 <!-- Background Music -->
-<audio id="bgMusic" autoplay loop>
+<audio id="bgMusic" loop>
     <source src="carry-you-home.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-// Try autoplay
 window.onload = function() {
     var music = document.getElementById("bgMusic");
-    music.play().catch(function() {
-        setTimeout(function() {
-            music.play();
-        }, 1000);
-    });
+    music.volume = 0.6;
+
+    // Try autoplay
+    var playPromise = music.play();
+
+    if (playPromise !== undefined) {
+        playPromise.catch(function() {
+            // If autoplay blocked, play on first tap
+            document.addEventListener("click", function() {
+                music.play();
+            }, { once: true });
+        });
+    }
 };
 
-// Floating Hearts Generator
+// Floating Hearts
 setInterval(function() {
     var heart = document.createElement("div");
     heart.className = "heart";
@@ -116,29 +132,3 @@ setInterval(function() {
 </body>
 </html>
 
-    const music = document.getElementById("bgMusic");
-    music.volume = 0.6;
-
-    music.play().catch(() => {
-        document.addEventListener("click", function() {
-            music.play();
-        }, { once: true });
-    });
-});
-
-// Floating hearts
-setInterval(() => {
-    let heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.innerHTML = "💗";
-    document.body.appendChild(heart);
-
-    setTimeout(() => {
-        heart.remove();
-    }, 6000);
-}, 400);
-</script>
-
-</body>
-</html>
